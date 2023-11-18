@@ -55,7 +55,7 @@
         <p class="left-align-text">
           <!-- Radio group for single selection -->
           <b-form-group
-              label="Please select from options (Select one):"
+              label="Please select your diet:"
               v-slot="{ ariaDescribedby }"
               class="radio-group"
           >
@@ -83,7 +83,7 @@
         <p class="left-align-text">
           <!-- Checkbox group for multiple selections -->
           <b-form-group
-              label="Please check the food you're allergic to:"
+              label="Please check the food you don't like:"
               v-slot="{ ariaDescribedby }"
               class="checkbox-group"
           >
@@ -132,10 +132,10 @@ export default {
         { text: 'Grape', value: 'grape' }
       ],
       singleOptions: [ // New set of options for single selection
-        { text: 'a', value: 'a' },
-        { text: 'b', value: 'b' },
-        { text: 'c', value: 'c' },
-        { text: 'd', value: 'd' }
+        { text: 'vegan', value: 'vegan' },
+        { text: 'vegetarian', value: 'vegetarian' },
+        { text: 'pescetarian', value: 'pescetarian' },
+        { text: 'no restrictions', value: 'no restrictions' }
       ]
     }
   }
