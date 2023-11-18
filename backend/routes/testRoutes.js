@@ -9,4 +9,7 @@ module.exports = app => {
     app.route('/disliked_ingredients').post(ingredientBuilder.updated_disliked_ingredients);
 
     app.route('/recipes').post(recipeBuilder.read_allowed_recipes);
+
+    app.route("/recipes-all").post(recipeBuilder.read_all_recipes);
+    app.route("/suggest").post(recipeBuilder.suggest_recipes);
 };
