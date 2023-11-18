@@ -19,6 +19,10 @@ const recipesSchema = new Schema(
             required: true,
             unique: true
         },
+        ingredients: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "ingredients"
+        }],
         tags: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "tags"
