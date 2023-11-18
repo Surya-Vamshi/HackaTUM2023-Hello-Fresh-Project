@@ -8,6 +8,16 @@ const router = createRouter({
             name: 'GroupManagement',
             component: () => import('@/views/Group-test.vue'),
         },
+        {
+            path: '/personalisation',
+            name: 'Personalisation',
+            component: () => import('@/views/Recipe-Personalisation.vue'),
+        },
+        {
+            path: '/help',
+            name: 'Help',
+            component: () => import('@/views/Help-Page.vue'),
+        },
     ]
 });
 

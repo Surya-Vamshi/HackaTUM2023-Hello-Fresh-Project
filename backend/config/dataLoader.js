@@ -42,8 +42,8 @@ function basicDatabaseDataInit() {
             console.log("Test Data Initialized");
         }
     });*/
-    // Test.insertMany(testsData);
-    // console.log("Test Data Initialized");
+    Test.insertMany(testsData);
+    console.log("Test Data Initialized");
 }
 
 module.exports = {
