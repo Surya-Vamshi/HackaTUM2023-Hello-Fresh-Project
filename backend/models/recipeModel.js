@@ -19,10 +19,10 @@ const recipesSchema = new Schema(
             required: true,
             unique: true
         },
-        tags: {
-            type: Array[mongoose.Schema.Types.ObjectId],
+        tags: [{
+            type: mongoose.Schema.Types.ObjectId,
             ref: "tags"
-        },
+        }],
         prepTime: {
             type: String,
             required: true

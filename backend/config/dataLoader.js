@@ -35,28 +35,31 @@ const recipeT = db.tag;
  * To generate the dummy data, delete all collections in your mongoDB database.
  */
 async function basicDatabaseDataInit() {
-    if (allergies.estimatedDocumentCount() > 0) {
-        await allergies.remove({});
+    if ((await allergies.estimatedDocumentCount()) > 0) {
+        await allergies.deleteMany();
     }
-    if (ingredients.estimatedDocumentCount() > 0) {
-        await ingredients.remove({});
+    if ((await ingredients.estimatedDocumentCount()) > 0) {
+        await ingredients.deleteMany();
     }
-    if (recipes.estimatedDocumentCount() > 0) {
-        await recipes.remove({});
+    if ((await recipes.estimatedDocumentCount()) > 0) {
+        await recipes.deleteMany();
     }
-    if (recipeT.estimatedDocumentCount() > 0) {
-        await recipeT.remove({});
+    if ((await recipeT.estimatedDocumentCount()) > 0) {
+        await recipeT.deleteMany();
     }
 
     await allergies.insertMany(allergiesData);
     console.log("Allergies Data Initialized");
 
+    await ingredients.deleteMany();
     await ingredients.insertMany(ingredientsData);
     console.log("Ingredients Data Initialized");
 
+    await recipes.deleteMany();
     await recipes.insertMany(recipesData);
     console.log("Recipes Data Initialized");
 
+    await recipeT.deleteMany();
     await recipeT.insertMany(tagsData);
     console.log("RecipeTags Data Initialized");
 }

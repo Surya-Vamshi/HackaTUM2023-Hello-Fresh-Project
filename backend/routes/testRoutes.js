@@ -1,9 +1,9 @@
 const testBuilder = require('../controllers/testController');
 
 module.exports = app => {
-    app
-        .route('/tests')
-        .get(testBuilder.list_all_tests);
+    // app
+    //     .route('/tests')
+    //     .get(testBuilder.list_all_tests);
         // .post(testBuilder.create_a_task);
 
     /*app

@@ -14,10 +14,10 @@ const ingredientsSchema = new Schema(
             required: true,
             unique: true
         },
-        allergies: {
-            type: Array[mongoose.Schema.Types.ObjectId],
+        allergies: [{
+            type: mongoose.Schema.Types.ObjectId,
             ref: "allergies"
-        },
+        }],
         lifestylePref: {
             type: String,
             required: true
