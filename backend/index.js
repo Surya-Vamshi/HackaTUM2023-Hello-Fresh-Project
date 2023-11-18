@@ -3,7 +3,12 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-global.Pack = require('./models/testModel');
+// global.Pack = require('./models/testModel');
+global.allergies = require('./models/allergyModel');
+global.ingredients = require('./models/ingredientModel');
+global.recipes = require('./models/recipeModel');
+global.recipeT = require('./models/tagModel');
+
 const routes = require('./routes/testRoutes');
 mongoose.Promise = global.Promise;
 

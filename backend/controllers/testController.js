@@ -1,3 +1,4 @@
+/*
 const mongoose = require('mongoose');
 const tests = mongoose.model('test');
 
@@ -10,3 +11,4 @@ exports.list_all_tests = (req, res) => {
         res.send(err);
     });
 };
+*/
