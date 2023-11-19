@@ -18,6 +18,11 @@ const router = createRouter({
             name: 'Help',
             component: () => import('@/views/Help-Page.vue'),
         },
+        {
+            path: '/user-personalisation',
+            name: 'UserPersonalisation',
+            component: () => import('@/views/User-Personalisation.vue'),
+        },
     ]
 });
 

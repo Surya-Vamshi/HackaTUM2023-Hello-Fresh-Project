@@ -1,19 +1,4 @@
 <template>
-  <!-- Header -->
-  <h1>Fellow Fresh</h1>
-  <br>
-  <!-- Information -->
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #047A46;">
-    <a class="navbar-brand menu-text" href="#">Menu</a>
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="text-right">
-          <a href="http://localhost:8080/help" class="btn-default text-white" role="button">Help</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
   <div class = "p-4">
   <!-- tabs bar -->
   <div>
@@ -121,6 +106,7 @@
 
 <script >
 export default {
+  name: 'Group-test',
   data() {
     return {
       selectedMultiple: [], // For multiple selections
@@ -138,7 +124,7 @@ export default {
         { text: 'no restrictions', value: 'no restrictions' }
       ]
     }
-  }
+  },
 }
 </script>
 
