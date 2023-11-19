@@ -7,7 +7,7 @@
           <b-form-checkbox inline
                         v-model="selectedIngredients"
                         :key="ingredient.name"
-                        :value="ingredient.name"
+                        :value="ingredient._id"
           >
             {{ ingredient.name }}
           </b-form-checkbox>
@@ -54,7 +54,12 @@ export default {
   methods: {
     goToNextPersonalisationPage() {
       // console.log(this.selectedIngredients);
-      // this.$emit('nextPage', 'lifestyle', this.selectedAllergies);
+      let newlist = [];
+      this.allIngredients.forEach(ingredient => {
+        newlist.push(ingredient._id);
+      });
+      this.$emit('getRecipes', newlist, this.selectedIngredients);
+
     }
   }
 }

@@ -19,5 +19,9 @@ export const api = {
     setDislikedIngredients:handleError(async (json) => {
         const res = await axios.post(baseURL + 'disliked_ingredients', json);
         return res.data;
+    }),
+    getAllRecipes:handleError(async (json) => {
+        const res = await axios.post(baseURL + 'suggest', json);
+        return res.data;
     })
 };

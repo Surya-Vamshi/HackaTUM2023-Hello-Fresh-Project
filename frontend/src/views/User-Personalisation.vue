@@ -11,29 +11,39 @@
       v-if="dislike"
       :selectedAllergies="selectedAllergies"
       :selectedLifestyles="selectedLifestyles"
-      @nextPage="nextPage('change view')"
+      @getRecipes="getRecipes"
   ></DislikePersonalisation>
+  <recipe-overview
+    v-if="recipes"
+    :allowedIngredients="allowedIngredients"
+    :dislikedIngredients="dislikedIngredients"
+  ></recipe-overview>
 </template>
 
 <script>
 import AllergiesPersonalisation from '@/components/Allergies-Personalisation';
 import LifestylePreference from '@/components/Lifestyle-Preference';
 import DislikePersonalisation from '@/components/Dislike-Personalisation';
+import RecipeOverview from '@/components/Recipe-Overview';
 
 export default {
   name: "User-Personalisation",
   components: {
     AllergiesPersonalisation,
     LifestylePreference,
-    DislikePersonalisation
+    DislikePersonalisation,
+    RecipeOverview
   },
   data() {
     return {
       allergies: true,
       lifestyle: false,
       dislike: false,
+      recipes: false,
       selectedAllergies: [],
-      selectedLifestyles: []
+      selectedLifestyles: [],
+      allowedIngredients: [],
+      dislikedIngredients: []
     }
   },
   methods: {
@@ -49,6 +59,12 @@ export default {
         this.selectedLifestyles = data;
         // console.log(this.selectedLifestyles);
       }
+    },
+    getRecipes(allowedIngredients, dislikedIngredients) {
+      this.dislike = false;
+      this.recipes = true;
+      this.allowedIngredients = allowedIngredients;
+      this.dislikedIngredients = dislikedIngredients;
     }
   }
 }

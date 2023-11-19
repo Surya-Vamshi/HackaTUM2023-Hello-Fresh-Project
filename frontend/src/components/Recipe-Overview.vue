@@ -61,11 +61,11 @@
     <!-- OUR FIRST (TILE) VIEW OF THE RECIPES -->
     <div v-if="currentView === 'view1'">
       <b-card title="We've gathered the most fitting recipes for you...">
-
-        <div class="recipe_card">
+        <b-row>
+        <div v-for="recipe in allRecipes.filteredRecipes" v-bind:key="recipe._id" class="recipe_card">
           <b-card
-              title="Crispy Cheddar Chicken"
-              img-src="https://img.hellofresh.com/w_3840,q_auto,f_auto,c_limit,fl_lossy/c_fill,f_auto,fl_lossy,h_432,q_auto/hellofresh_s3/image/64107d1ffca8e2850e0dc925-eac2e91a.jpg"
+              :title=recipe.name
+              :img-src=recipe.imageLink
               img-alt="Image"
               img-top
               tag="article"
@@ -74,9 +74,29 @@
             <!-- <b-card-text>
               Some quick example text to build on the card title and make up the bulk of the card's content.
             </b-card-text> -->
-            <b-button href="#" class="recipe_button">Get the recipe</b-button>
+            <b-button :href=recipe.websiteURL target="_blank" class="recipe_button">Get the recipe</b-button>
           </b-card>
         </div>
+        </b-row>
+      </b-card>
+      <b-card title="We've also suggested other recipes... (we will remove the ingredient you don't like if you order)">
+        <b-row>
+        <div v-for="recipe in allRecipes.recipesWithDislikedIngredients" v-bind:key="recipe._id" class="recipe_card">
+          <b-card
+              :title=recipe.name
+              :img-src=recipe.imageLink
+              img-alt="Image"
+              img-top
+              tag="article"
+              class="mb-2 p-3 hover-effect"
+          >
+            <!-- <b-card-text>
+              Some quick example text to build on the card title and make up the bulk of the card's content.
+            </b-card-text> -->
+            <b-button :href=recipe.websiteURL target="_blank" class="recipe_button">Get the recipe</b-button>
+          </b-card>
+        </div>
+        </b-row>
       </b-card>
     </div>
 
@@ -85,37 +105,63 @@
        <b-card title="We've gathered the most fitting recipes for you...">
         <div class="container-sm">
         <b-list-group>
-          <b-list-group-item href="#" class="hover-effect">
+          <b-list-group-item v-for="recipe in allRecipes.filteredRecipes" v-bind:key="recipe._id" href="#" class="hover-effect">
             <div class="d-flex w-100 justify-content-between align-items-center">
-              <h5 class="mb-1">Crispy Cheddar Chicken
-                <img height="250" alt="HelloFresh" src="https://img.hellofresh.com/w_3840,q_auto,f_auto,c_limit,fl_lossy/c_fill,f_auto,fl_lossy,h_432,q_auto/hellofresh_s3/image/64107d1ffca8e2850e0dc925-eac2e91a.jpg" data-test-id="desktop-logo" style="display: block;">
+              <h5 class="mb-1">{{ recipe.name }}
+                <img height="250" alt="HelloFresh" :src=recipe.imageLink data-test-id="desktop-logo" style="display: block;">
               </h5>
-              <div class="w-50 align-items-center"> <b-button href="#" class="recipe_button">Get the recipe</b-button> </div>
+              <div class="w-50 align-items-center"> <b-button :href=recipe.websiteURL target="_blank" class="recipe_button">Get the recipe</b-button> </div>
             </div>
-            <small>Bla bla</small>
-          </b-list-group-item>
-
-          <b-list-group-item href="#" class="hover-effect">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">Recipe 2</h5>
-              <small class="text-muted">Bla bla</small>
-            </div>
-
-            <small class="text-muted">Bla bla.</small>
           </b-list-group-item>
         </b-list-group>
       </div>
+      </b-card>
+      <b-card title="We've also suggested other recipes... (we will remove the ingredient you don't like if you order)">
+        <div class="container-sm">
+          <b-list-group>
+            <b-list-group-item v-for="recipe in allRecipes.recipesWithDislikedIngredients" v-bind:key="recipe._id" href="#" class="hover-effect">
+              <div class="d-flex w-100 justify-content-between align-items-center">
+                <h5 class="mb-1">{{ recipe.name }}
+                  <img height="250" alt="HelloFresh" :src=recipe.imageLink data-test-id="desktop-logo" style="display: block;">
+                </h5>
+                <div class="w-50 align-items-center"> <b-button :href=recipe.websiteURL target="_blank" class="recipe_button">Get the recipe</b-button> </div>
+              </div>
+            </b-list-group-item>
+          </b-list-group>
+        </div>
       </b-card>
     </div>
   </div>
 </template>
 
 <script>
+import {api} from "@/helpers/helpers";
+
 export default {
+  name: "Recipe-Overview",
+  props: {
+    allowedIngredients: {
+      type: Object,
+      default: () => ({})
+    },
+    dislikedIngredients: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
       currentView: 'view1',
+      allRecipes: [],
     };
+  },
+  async mounted() {
+    const json = {
+      allowedIngredients: this.allowedIngredients,
+      dislikedIngredients: this.dislikedIngredients
+    };
+    this.allRecipes = await api.getAllRecipes(json);
+    console.log(this.allRecipes);
   },
   methods: {
     changeView(view) {
@@ -150,6 +196,7 @@ export default {
 }
 .recipe_card {
   padding: 40px;
+  width: min-content;
 }
 .banner_colour {
   background-color: #047A46;
