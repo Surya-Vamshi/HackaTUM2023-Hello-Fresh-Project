@@ -23,6 +23,11 @@ const router = createRouter({
             name: 'UserPersonalisation',
             component: () => import('@/views/User-Personalisation.vue'),
         },
+        {
+            path: '/recipe-overview',
+            name: 'Recipe-Overview',
+            component: () => import('@/views/Recipe-Overview.vue'),
+        },
     ]
 });
 
