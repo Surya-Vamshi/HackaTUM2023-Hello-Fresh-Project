@@ -86,9 +86,9 @@ export default {
 
 
 .container {
-  margin-top: 100px;
+  //margin-top: 100px;
   max-width: 900px;
-  margin: 2rem auto;
+  //margin: 2rem auto;
   padding: 2rem;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
