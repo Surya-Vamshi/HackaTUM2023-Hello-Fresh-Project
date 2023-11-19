@@ -131,7 +131,6 @@ export default {
 }
 .project_title {
   //background-color: #047A46;
-  //color: #fff;
   padding: 10px;
 }
 .lemon {
