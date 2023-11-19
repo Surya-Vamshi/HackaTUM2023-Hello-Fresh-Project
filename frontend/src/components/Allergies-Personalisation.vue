@@ -7,7 +7,7 @@
         <b-form-checkbox inline
             v-model="selectedAllergies"
             :key="allergy.name"
-            :value="allergy.name"
+            :value="allergy._id"
         >
           {{ allergy.name }}
         </b-form-checkbox>

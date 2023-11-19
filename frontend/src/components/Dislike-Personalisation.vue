@@ -23,20 +23,37 @@ import {api} from "@/helpers/helpers";
 
 export default {
   name: "Dislike-Personalisation",
-  props: { selectedAllergies, selectedLifestyles },
+  props: {
+    selectedAllergies: {
+      type: Object,
+      default: () => ({})
+    },
+    selectedLifestyles: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
       allIngredients: [],
       selectedIngredients: [],
-    }
+      allergyList: this.selectedAllergies ? this.selectedAllergies : null,
+      lifestyleList: this.selectedLifestyles ? this.selectedLifestyles : null,
+    };
   },
   async mounted() {
-    const json = {...JSON.stringify(this.selectedAllergies), ...JSON.stringify(this.selectedLifestyles)};
+    // const json = { ...this.selectedAllergies, ...this.selectedLifestyles };
+    const json = {
+      allergyList: this.selectedAllergies,
+      lifestylePrefList: this.selectedLifestyles
+    };
+    // console.log(json);
+
     this.allIngredients = await api.getAllowedIngredients(json);
   },
   methods: {
     goToNextPersonalisationPage() {
-      console.log(this.selectedIngredients);
+      // console.log(this.selectedIngredients);
       // this.$emit('nextPage', 'lifestyle', this.selectedAllergies);
     }
   }

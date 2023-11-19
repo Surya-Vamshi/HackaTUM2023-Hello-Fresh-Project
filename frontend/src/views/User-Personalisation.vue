@@ -1,11 +1,11 @@
 <template>
   <allergies-personalisation
       v-if="allergies"
-      @nextPage="nextPage('lifestyle')"
+      @nextPage="nextPage"
   ></allergies-personalisation>
   <LifestylePreference
       v-if="lifestyle"
-      @nextPage="nextPage('dislike')"
+      @nextPage="nextPage"
   ></LifestylePreference>
   <DislikePersonalisation
       v-if="dislike"
@@ -42,10 +42,12 @@ export default {
         this.allergies = false;
         this.lifestyle = true;
         this.selectedAllergies = data;
+        // console.log(this.selectedAllergies);
       } else if (page === 'dislike') {
         this.lifestyle = false;
         this.dislike = true;
         this.selectedLifestyles = data;
+        // console.log(this.selectedLifestyles);
       }
     }
   }

@@ -5,7 +5,7 @@
       <b-row class="diet-options">
         <b-col v-for="lifestyle in allLifestyles" v-bind:key="lifestyle" sm="2" class="color-circle">
           <b-form-radio inline
-                           v-model="selectedLifestyle"
+                           v-model="selectedLifestyles"
                            :key="lifestyle"
                            :value="lifestyle"
           >
@@ -32,19 +32,19 @@ export default {
   methods: {
     goToNextPersonalisationPage() {
       if (this.selectedLifestyles.length !== 0) {
-        if (this.selectedLifestyles[0] === 'All of these') {
+        if (this.selectedLifestyles === 'All of these') {
           this.selectedLifestyles = [
             'Meat', 'Seafood', 'Vegetarian', 'Vegan'
           ]
-        } else if (this.selectedLifestyles[0] === 'Meat') {
+        } else if (this.selectedLifestyles === 'Meat') {
           this.selectedLifestyles = [
             'Meat', 'Vegetarian', 'Vegan'
           ]
-        } else if (this.selectedLifestyles[0] === 'Seafood') {
+        } else if (this.selectedLifestyles === 'Seafood') {
           this.selectedLifestyles = [
             'Seafood', 'Vegetarian', 'Vegan'
           ]
-        } else if (this.selectedLifestyles[0] === 'Vegetarian') {
+        } else if (this.selectedLifestyles === 'Vegetarian') {
           this.selectedLifestyles = [
             'Vegetarian', 'Vegan'
           ]
