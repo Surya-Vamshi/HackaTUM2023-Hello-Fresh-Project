@@ -1,4 +1,5 @@
 <template>
+  <header-component></header-component>
   <allergies-personalisation
       v-if="allergies"
       @nextPage="nextPage"
@@ -21,6 +22,7 @@
 </template>
 
 <script>
+import HeaderComponent from '@/components/Header-Component';
 import AllergiesPersonalisation from '@/components/Allergies-Personalisation';
 import LifestylePreference from '@/components/Lifestyle-Preference';
 import DislikePersonalisation from '@/components/Dislike-Personalisation';
@@ -29,6 +31,7 @@ import RecipeOverview from '@/components/Recipe-Overview';
 export default {
   name: "User-Personalisation",
   components: {
+    HeaderComponent,
     AllergiesPersonalisation,
     LifestylePreference,
     DislikePersonalisation,

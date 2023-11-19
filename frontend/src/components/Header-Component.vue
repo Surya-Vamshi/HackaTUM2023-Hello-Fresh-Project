@@ -54,4 +54,8 @@ button {
   border-radius: 10%; /* Make the button round */
   padding: 8px 12px; /* Adjust padding as needed */
 }
+
+::v-deep .dropdown-toggle {
+  color: white !important;
+}
 </style>

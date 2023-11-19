@@ -1,42 +1,5 @@
-<template>
+<template xmlns:list-style-type="http://www.w3.org/1999/xhtml">
   <div>
-    <b-navbar toggleable="lg" type="dark" class="banner_colour" >
-      <!--<b-navbar-brand href="#">NavBar</b-navbar-brand>-->
-
-      <!-- <img class="header" height="30" alt="HelloFresh" src="https://cdn.hellofresh.com/logo/Hello_Fresh_Lockup.png" id="desktop-navigation-logo" data-test-id="desktop-logo" style="display: block;"> -->
-      <img class="header" height="30" alt="HelloFresh" :src="require('@/assets/hello fresh logo.png')" id="desktop-navigation-logo" data-test-id="desktop-logo" style="display: block;">
-
-      <b-col class="d-flex align-items-center">
-        <div class="project_title component text-center">
-        <h1 class="font-weight-bold">Fellow Fresh</h1>
-        </div>
-      </b-col>
-
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
-        <b-nav-form>
-          <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-        </b-nav-form>
-
-        <b-nav-item-dropdown text="Language" right>
-          <b-dropdown-item href="#">EN</b-dropdown-item>
-          <b-dropdown-item href="#">ES</b-dropdown-item>
-          <b-dropdown-item href="#">DE</b-dropdown-item>
-          <b-dropdown-item href="#">FA</b-dropdown-item>
-        </b-nav-item-dropdown>
-
-        <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
-          <template #button-content>User</template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-        </b-nav-item-dropdown>
-
-      </b-navbar-nav>
-    </b-navbar>
-
     <div>
       <div class="project_title component text-center">
         <b-row>
@@ -55,8 +18,8 @@
   </div>
 
   <div>
-    <button v-b-popover.hover.top="'Click here if you want to see the recipes in the tiles format'" @click="changeView('view1')">Square View</button>
-    <button v-b-popover.hover.top="'Click here if you want to see the recipes in the list format'" @click="changeView('view2')">List View</button>
+    <button v-b-popover.hover.top="'Click here if you want to see the recipes in the tiles format'" id="view1" @click="changeView('view1')">Square View</button>
+    <button v-b-popover.hover.top="'Click here if you want to see the recipes in the list format'" id="view2" @click="changeView('view2')">List View</button>
 
     <!-- OUR FIRST (TILE) VIEW OF THE RECIPES -->
     <div v-if="currentView === 'view1'">
@@ -69,11 +32,8 @@
               img-alt="Image"
               img-top
               tag="article"
-              class="mb-2 p-3 hover-effect"
+              class="mb-2 p-3 hover-effect card-article"
           >
-            <!-- <b-card-text>
-              Some quick example text to build on the card title and make up the bulk of the card's content.
-            </b-card-text> -->
             <b-button :href=recipe.websiteURL target="_blank" class="recipe_button">Get the recipe</b-button>
           </b-card>
         </div>
@@ -110,7 +70,18 @@
               <h5 class="mb-1">{{ recipe.name }}
                 <img height="250" alt="HelloFresh" :src=recipe.imageLink data-test-id="desktop-logo" style="display: block;">
               </h5>
-              <div class="w-50 align-items-center"> <b-button :href=recipe.websiteURL target="_blank" class="recipe_button">Get the recipe</b-button> </div>
+              <b-col>
+              <b-row>
+              <ul>
+                <li v-for="recipeIngredientId in recipe.ingredients" v-bind:key="recipeIngredientId">
+                  {{ getIngredient(recipeIngredientId) }}
+                </li>
+              </ul>
+              </b-row>
+              <b-row class="mt-3">
+                <div class="align-items-center"> <b-button :href=recipe.websiteURL target="_blank" class="recipe_button">Get the recipe</b-button> </div>
+              </b-row>
+              </b-col>
             </div>
           </b-list-group-item>
         </b-list-group>
@@ -124,7 +95,18 @@
                 <h5 class="mb-1">{{ recipe.name }}
                   <img height="250" alt="HelloFresh" :src=recipe.imageLink data-test-id="desktop-logo" style="display: block;">
                 </h5>
-                <div class="w-50 align-items-center"> <b-button :href=recipe.websiteURL target="_blank" class="recipe_button">Get the recipe</b-button> </div>
+                <b-col>
+                  <b-row>
+                    <ul>
+                      <li v-for="recipeIngredientId in recipe.ingredients" v-bind:key="recipeIngredientId">
+                        {{ getIngredient(recipeIngredientId) }}
+                      </li>
+                    </ul>
+                  </b-row>
+                  <b-row class="mt-3">
+                    <div class="align-items-center"> <b-button :href=recipe.websiteURL target="_blank" class="recipe_button">Get the recipe</b-button> </div>
+                  </b-row>
+                </b-col>
               </div>
             </b-list-group-item>
           </b-list-group>
@@ -156,8 +138,12 @@ export default {
     };
   },
   async mounted() {
+    let newlist = [];
+    this.allowedIngredients.forEach(ingredient => {
+      newlist.push(ingredient._id);
+    });
     const json = {
-      allowedIngredients: this.allowedIngredients,
+      allowedIngredients: newlist,
       dislikedIngredients: this.dislikedIngredients
     };
     this.allRecipes = await api.getAllRecipes(json);
@@ -166,12 +152,35 @@ export default {
   methods: {
     changeView(view) {
       this.currentView = view;
+      this.$root.$emit('bv::hide::popover', view);
     },
+    showIngredients(recipeId) {
+      this.$root.$emit('bv::show::popover', 'card-'+recipeId);
+      return 'Hello';
+    },
+    getIngredient(id) {
+      for(let i=0; i<this.allowedIngredients.length; i++) {
+        console.log(this.allowedIngredients[i].name);
+        if (this.allowedIngredients[i]._id === id) {
+          return this.allowedIngredients[i].name;
+        }
+      }
+    }
   },
 };
 </script>
 
 <style scoped>
+article.card {
+  height: max-content;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .header {
   height: 50px !important;
 }

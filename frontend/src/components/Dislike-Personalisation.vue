@@ -54,12 +54,7 @@ export default {
   methods: {
     goToNextPersonalisationPage() {
       // console.log(this.selectedIngredients);
-      let newlist = [];
-      this.allIngredients.forEach(ingredient => {
-        newlist.push(ingredient._id);
-      });
-      this.$emit('getRecipes', newlist, this.selectedIngredients);
-
+      this.$emit('getRecipes', this.allIngredients, this.selectedIngredients);
     }
   }
 }
