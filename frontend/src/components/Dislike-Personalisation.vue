@@ -61,9 +61,8 @@ export default {
     goToNextPersonalisationPage() {
       // console.log(this.selectedIngredients);
       this.$emit('getRecipes', this.allIngredients, this.selectedIngredients);
-    }
-      // this.$emit('nextPage', 'lifestyle', this.selectedAllergies);
     },
+      // this.$emit('nextPage', 'lifestyle', this.selectedAllergies);s
     isSelected(ingredientId) {
       return this.selectedIngredients.includes(ingredientId);
     },
