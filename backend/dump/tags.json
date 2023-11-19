@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "61f1e1b3c2e9f7d8f3d4c2ca",
+    "name": "InternationalKitchen"
+  },
+  {
+    "_id": "61f1e1b3c2e9f7d8f3d4c2cb",
+    "name": "FamilyFriendly"
+  },
+  {
+    "_id": "61f1e1b3c2e9f7d8f3d4c2cc",
+    "name": "Dessert"
+  },
+  {
+    "_id": "61f1e1b3c2e9f7d8f3d4c2cd",
+    "name": "ToSaveTime"
+  },
+  {
+    "_id": "61f1e1b3c2e9f7d8f3d4c2ce",
+    "name": "Under650Calories"
+  },
+  {
+    "_id": "61f1e1b3c2e9f7d8f3d4c2cf",
+    "name": "Breakfast"
+  }
+]
